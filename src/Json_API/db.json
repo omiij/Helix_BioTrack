@@ -1,0 +1,58 @@
+{
+  "Products": [
+    {
+      "product": "Jeans",
+      "size": "XS",
+      "gender": "Male",
+      "color": "Orange",
+      "price": "720",
+      "percentage": "10",
+      "quantity": 0,
+      "total": 0,
+      "id": 1
+    },
+    {
+      "product": "Shits",
+      "size": "XS",
+      "gender": "Male",
+      "color": "Orange",
+      "price": "1200",
+      "percentage": "18",
+      "quantity": 0,
+      "total": 0,
+      "id": 2
+    },
+    {
+      "product": "Hat",
+      "size": "XS",
+      "gender": "Male",
+      "color": "Orange",
+      "price": "750",
+      "percentage": "220",
+      "quantity": 0,
+      "total": 0,
+      "id": 3
+    },
+    {
+      "product": "Pen",
+      "size": "S",
+      "gender": "other",
+      "color": "Orange",
+      "price": "520",
+      "percentage": "5",
+      "quantity": 0,
+      "total": 0,
+      "id": 4
+    }
+  ],
+  "cartProduct": [
+    {
+      "product": "Jeans",
+      "price": "720",
+      "percentage": "10",
+      "quantity": 3,
+      "total": 2232,
+      "id": 4
+    }
+  ]
+}
