@@ -61,6 +61,78 @@ export default new Vuex.Store({
     removeProductList: true as boolean,
     productDetailsList: true as boolean,
     priceList: true as boolean,
+
+    //Cutomer Details
+    cutomerDetails: [] as [],
+    csId: 0 as number,
+    CutomerToggle: true as boolean,
+    customerFirstName: "" as string,
+    customerLastName: "" as string,
+    customerGender: "" as string,
+    customerNumber: 0 as number,
+    cutomerAge: 0 as number,
+
+    customerLocality: "" as string,
+    customerCity: "" as string,
+    customerState: "" as string,
+    customerCountry: "" as string,
+    customerPin: 0 as number,
+    //Cutomer Details
+
+    //style Manager
+    styleColors: [
+      "red" as string,
+      "orange" as string,
+      "yellow" as string,
+      "green" as string,
+      "blue" as string,
+      "pink" as string,
+      "purple" as string,
+      "brown" as string,
+    ],
+    styleSize: [
+      "0.75rem" as string,
+      "1rem" as string,
+      "1.5rem" as string,
+      "2rem" as string,
+      "2.5rem" as string,
+    ],
+    styleBorder: [
+      "red" as string,
+      "orange" as string,
+      "yellow" as string,
+      "green" as string,
+      "blue" as string,
+      "pink" as string,
+      "purple" as string,
+      "brown" as string,
+    ],
+    styleButtonColor: [
+      "red" as string,
+      "orange" as string,
+      "yellow" as string,
+      "green" as string,
+      "blue" as string,
+      "pink" as string,
+      "purple" as string,
+      "brown" as string,
+    ],
+    productPageColor: "" as string,
+    productFontSize: "" as string,
+    productButtonColor: "" as string,
+    productBorder: "" as string,
+
+    salePageColor: "" as string,
+    saleFontSize: "" as string,
+    saleButtonColor: "" as string,
+    saleBorder: "" as string,
+
+    reportPageColor: "" as string,
+    reportFontSize: "" as string,
+    reportButtonColor: "" as string,
+    reportBorder: "" as string,
+
+    //style Manager
   },
   getters: {},
   mutations: {
@@ -94,12 +166,23 @@ export default new Vuex.Store({
     //Product-Form and Product-List
 
     //Cart-products
-    ADD_TO_CART(state, payload) {
-      const TempItem = state.cartProducts.filter((data: any) => {
+    async ADD_TO_CART(state, payload) {
+      const dataUploadded = await axios.get(
+        "http://localhost:3000/cartProduct"
+      );
+
+      const TempItem = dataUploadded.data.filter((data: any) => {
         return data.id === payload.item.id;
       });
+      console.log(TempItem, "Hello");
+
       const addItems = {
         product: payload.item.product,
+        color: payload.item.color,
+        size: payload.item.size,
+        gender: payload.item.gender,
+        price: payload.item.price,
+        tax: payload.item.percentage,
         unit: payload.count,
         total:
           parseFloat(payload.item.price) * parseFloat(payload.count) +
@@ -110,18 +193,40 @@ export default new Vuex.Store({
       };
       if (TempItem.length === 0) {
         state.cartProducts.push(addItems);
+        await axios.post("http://localhost:3000/cartProduct", addItems);
       } else {
-        state.cartProducts.forEach((data: any) => {
-          if (data.id === payload.item.id) {
-            data.unit = data.unit + addItems.unit;
-            data.total = data.total + addItems.total;
-          }
-        });
+        // state.cartProducts.forEach((data: any) => {
+        //   if (data.id === payload.item.id) {
+        //     data.unit = data.unit + addItems.unit;
+        //     data.total = data.total + addItems.total;
+        //   }
+        // });
+        TempItem[0].unit = TempItem[0].unit + addItems.unit;
+        TempItem[0].total = TempItem[0].total + addItems.total;
+        const DataItem = { ...TempItem[0] };
+        // DataItem.product = addItems.product;
+        DataItem.unit = TempItem[0].unit;
+        DataItem.total = TempItem[0].total;
+        // DataItem.id = addItems.id;
+        await axios.put(
+          "http://localhost:3000/cartProduct/" + TempItem[0].id,
+          DataItem
+        );
       }
       state.totalAmount = state.cartProducts.reduce((acc, curr) => {
-        return acc + curr.total;
+        return acc + parseFloat(curr.total);
       }, 0);
+      console.log(state.cartProducts);
     },
+    async DELETE_DATA_CART() {
+      const dataUploadded = await axios.get(
+        "http://localhost:3000/cartProduct"
+      );
+      dataUploadded.data.forEach(async (item: any) => {
+        await axios.delete("http://localhost:3000/cartProduct/" + item.id);
+      });
+    },
+    //Cart-products
     //Permission Manager
     SAVE_PERMISSION(state, { event, switchVar }) {
       if (switchVar === "editProduct") {
@@ -165,6 +270,26 @@ export default new Vuex.Store({
         state.priceList = event;
       }
     },
+    //customer profile manager
+    ADD_CUSTOMER_DATA(state, cutomerData) {
+      state.cutomerDetails = cutomerData;
+    },
+    EDIT_CUSTOMER_DATA(state, item) {
+      state.CutomerToggle = false;
+      state.csId = item.id;
+      state.customerFirstName = item.firstName;
+      state.customerLastName = item.lastName;
+      state.customerNumber = item.number;
+      state.customerGender = item.gender;
+      state.cutomerAge = item.age;
+      state.customerLocality = item.locality;
+
+      state.customerCity = item.city;
+      state.customerState = item.state;
+      state.customerCountry = item.country;
+      state.customerPin = item.pin;
+    },
+    //customer profile manager
   },
   actions: {
     //Product-Form and Product-List
@@ -203,6 +328,18 @@ export default new Vuex.Store({
     savePermission({ commit }, { event, switchVar }) {
       commit("SAVE_PERMISSION", { event, switchVar });
     },
+    deleteDataCart({ commit }) {
+      commit("DELETE_DATA_CART");
+    },
+    //Customer profile manager
+    async addCustomerData({ commit }) {
+      const response = await axios.get("http://localhost:3000/customerData");
+      commit("ADD_CUSTOMER_DATA", response.data);
+    },
+    editCustomerData({ commit }, item) {
+      commit("EDIT_CUSTOMER_DATA", item);
+    },
+    //Customer profile manager
   },
 
   modules: {},

@@ -142,8 +142,6 @@ export default class ProductForm extends Vue {
   tab = null;
 
   async ChangeData() {
-    // this.$store.dispatch("changeData");
-    console.log("Form Change");
     await axios.put(`http://localhost:3000/Products/${this.$store.state.id}/`, {
       product: this.productInput,
       size: this.sizeInput,

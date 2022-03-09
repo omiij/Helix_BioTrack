@@ -1,60 +1,72 @@
 <template>
   <div>
-    <v-card class="ma-10" justify-center>
-      <v-text-field
-        label="Search"
-        v-model="search"
-        @input="Search"
-        md="12"
-      ></v-text-field>
-
-      <router-link width="150px" to="/product-form" class="anchorLink">
-        <v-icon class="data-icons" color="red lighten-1" x-large overlap right
-          >mdi-plus</v-icon
-        >Add More Products</router-link
+    <v-card
+      class="ma-10 reportBorder"
+      :style="{
+        borderColor: this.$store.state.reportBorder,
+      }"
+      justify-center
+    >
+      <v-simple-table
+        height="auto"
+        :style="{
+          color: this.$store.state.reportPageColor,
+          fontSize: this.$store.state.reportFontSize,
+        }"
       >
-      <v-simple-table height="auto">
         <template v-slot:default>
           <thead>
             <tr>
               <th>INDEX</th>
-              <th v-if="$store.state.productsList">Product</th>
-              <th v-if="$store.state.productDetailsList">Product Details</th>
+              <th>Product</th>
+              <th>Gender</th>
+              <th>Size</th>
+              <th>Color</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Time Stamp</th>
+              <th>Tax</th>
+              <th>Quantity</th>
               <th>Price</th>
-              <th>Edit/Delete</th>
+
+              <th>
+                <div>Total Price</div>
+                <div>Inclusive Taxes</div>
+              </th>
+              <th>Name</th>
+              <th>Person Gender</th>
+              <th>Number</th>
+              <th>Age</th>
+              <th>Address</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item, index) in filteredData" v-bind:key="item.id">
+            <tr v-for="(item, index) in getData" v-bind:key="item.id">
               <td>{{ index + 1 }}</td>
               <td v-if="$store.state.productsList">{{ item.product }}</td>
-              <td v-if="$store.state.productDetailsList">
-                <span>{{ item.size }}</span>
-                <span>/{{ item.color }}</span>
-                <span>/{{ item.gender }}</span>
-              </td>
-              <td>{{ item.price }}</td>
               <td>
-                <router-link to="/product-form" class="anchorLink">
-                  <v-icon
-                    color="orange lighten-2"
-                    class="data-icons"
-                    href="/product"
-                    v-on:click="EditData(item)"
-                    v-if="$store.state.editProductList"
-                    >mdi-grease-pencil</v-icon
-                  ></router-link
-                >
-
-                <span v-if="$store.state.removeProductList"
-                  >/<v-icon
-                    class="data-icons"
-                    color="red lighten-1"
-                    v-if="$store.state.removeProductList"
-                    v-on:click="DeleteData(item.id)"
-                    >mdi-delete</v-icon
-                  ></span
-                >
+                {{ item.gender }}
+              </td>
+              <td>{{ item.size }}</td>
+              <td>{{ item.color }}</td>
+              <td>{{ item.date }}</td>
+              <td>{{ item.Time }}</td>
+              <td>{{ item.timeStamp }}</td>
+              <td>%{{ item.tax }}</td>
+              <td>{{ item.unit }}</td>
+              <td>{{ item.price }}</td>
+              <td>{{ item.total }}</td>
+              <td>
+                <span>{{ item.firstName }}</span>
+                <span>{{ item.lastName }}</span>
+              </td>
+              <td>{{ item.number }}</td>
+              <td>{{ item.customergender }}</td>
+              <td>{{ item.age }}</td>
+              <td>
+                <span>{{ item.locality }}</span
+                >-<span>{{ item.city }}</span> -<span>{{ item.state }}</span>
+                -<span>{{ item.country }}</span> -<span>{{ item.pin }}</span>
               </td>
             </tr>
           </tbody>
@@ -63,3 +75,27 @@
     </v-card>
   </div>
 </template>
+
+<script>
+import { Component, Vue } from "vue-property-decorator";
+import axios from "axios";
+import store from "../store";
+
+@Component({
+  components: {},
+})
+export default class ReportTool extends Vue {
+  getData = [];
+
+  async created() {
+    let response = await axios.get("http://localhost:3000/buyCart");
+    this.getData = response.data;
+  }
+}
+</script>
+
+<style scoped>
+.reportBorder {
+  border: 2px solid black;
+}
+</style>

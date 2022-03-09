@@ -27,7 +27,7 @@
             <v-list-item v-for="(item, index) in items" :key="index">
               <v-icon
                 class="mr-2"
-                color="red lighten-2"
+                color="primary lighten-2"
                 style="text-decoration: none"
                 >{{ item.icon }}</v-icon
               >
@@ -68,14 +68,29 @@ export default class NavBar extends Vue {
     //   route: "/product-input",
     // },
     {
-      icon: "mdi-home",
+      icon: "mdi-checkbox-marked-circle-outline",
       text: "Permission",
       route: "/permission",
     },
     {
-      icon: "mdi-home",
+      icon: "mdi-cart",
       text: "Sale",
       route: "/sale",
+    },
+    {
+      icon: "mdi-chart-box-outline",
+      text: "Report",
+      route: "/report",
+    },
+    {
+      icon: "mdi-account",
+      text: "Account",
+      route: "/CustomerProfile",
+    },
+    {
+      icon: "mdi-tune-vertical-variant",
+      text: "Style Manager",
+      route: "/stylemanager",
     },
   ];
 

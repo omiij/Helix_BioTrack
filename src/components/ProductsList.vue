@@ -1,6 +1,11 @@
 <template>
-  <div>
-    <v-card class="ma-10" justify-center>
+  <!-- fontSize: fontSize + 'px', -->
+  <div class="text">
+    <v-card
+      class="ma-10 border"
+      justify-center
+      :style="{ borderColor: this.$store.state.productBorder }"
+    >
       <v-text-field
         label="Search"
         v-model="search"
@@ -8,12 +13,26 @@
         md="12"
       ></v-text-field>
 
-      <router-link width="150px" to="/product-form" class="anchorLink">
+      <router-link
+        width="150px"
+        to="/product-form"
+        :style="{
+          color: this.$store.state.productPageColor,
+          fontSize: this.$store.state.productFontSize,
+        }"
+        class="anchorLink"
+      >
         <v-icon class="data-icons" color="red lighten-1" x-large overlap right
           >mdi-plus</v-icon
         >Add More Products</router-link
       >
-      <v-simple-table height="auto">
+      <v-simple-table
+        height="auto"
+        :style="{
+          color: this.$store.state.productPageColor,
+          fontSize: this.$store.state.productFontSize,
+        }"
+      >
         <template v-slot:default>
           <thead>
             <tr>
@@ -115,5 +134,8 @@ export default class ProductList extends Vue {
 }
 .anchorLink {
   text-decoration: none;
+}
+.border {
+  border: 2px solid black;
 }
 </style>
