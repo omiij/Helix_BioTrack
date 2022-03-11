@@ -42,9 +42,31 @@
       "gender": "other",
       "price": "520",
       "tax": "5",
-      "unit": 3,
-      "total": 1586,
+      "unit": 8,
+      "total": 4238,
       "id": 4
+    },
+    {
+      "product": "Hat",
+      "color": "Orange",
+      "size": "XS",
+      "gender": "Male",
+      "price": "750",
+      "tax": "220",
+      "unit": 7,
+      "total": 11850,
+      "id": 3
+    },
+    {
+      "product": "Jeans",
+      "color": "Orange",
+      "size": "XS",
+      "gender": "Male",
+      "price": "720",
+      "tax": "10",
+      "unit": 2,
+      "total": 1512,
+      "id": 1
     }
   ],
   "buyCart": [
@@ -256,30 +278,30 @@
   ],
   "customerData": [
     {
-      "firstName": "Tejas",
-      "lastName": "Gaikwad",
-      "number": "1235",
-      "gender": "Male",
-      "age": "23",
-      "locality": "Lohegaon",
-      "city": "Pune",
-      "state": "MH",
-      "country": "IND",
-      "pin": "413601",
+      "firstName": "nfjkaa",
+      "lastName": "aada",
+      "number": "5",
+      "gender": "Female",
+      "age": "75",
+      "locality": "dada",
+      "city": "adad",
+      "state": "adad",
+      "country": "adad",
+      "pin": "74",
       "id": 1
     },
     {
-      "firstName": "Onkar",
-      "lastName": "Jadhav",
-      "number": "86130",
-      "gender": "Male",
-      "age": "23",
-      "locality": "Lohegaon",
-      "city": "Pune",
-      "state": "MH",
-      "country": "IND",
-      "pin": "32146",
-      "id": 2
+      "firstName": "Ajay",
+      "lastName": "AJdja",
+      "number": "656",
+      "gender": "Female",
+      "age": "063",
+      "locality": "9666da",
+      "city": "dad",
+      "state": "dad",
+      "country": "adad",
+      "pin": "5656",
+      "id": 3
     }
   ]
 }

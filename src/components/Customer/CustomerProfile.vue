@@ -51,11 +51,11 @@
                   ></router-link
                 >
 
-                <span v-if="$store.state.removeProductList"
+                <span v-if="removeProductList"
                   >/<v-icon
                     class="data-icons"
                     color="red lighten-1"
-                    v-if="$store.state.removeProductList"
+                    v-if="removeProductList"
                     v-on:click="DeleteData(item.id)"
                     >mdi-delete</v-icon
                   ></span
@@ -68,36 +68,6 @@
     </v-card>
   </div>
 </template>
-
-<script>
-import { Component, Vue } from "vue-property-decorator";
-import axios from "axios";
-import store from "C:/Users/hp/OneDrive/Desktop/VUE_Projects/HelixBio/my-app/src/store";
-
-@Component({
-  components: {},
-})
-export default class ProductList extends Vue {
-  customerData = [];
-  async created() {
-    let response = await axios.get("http://localhost:3000/customerData");
-    this.customerData = response.data;
-  }
-
-  async DeleteData(id) {
-    let allData = await axios
-      .delete("http://localhost:3000/customerData/" + id)
-      .then(() => {
-        let z = this.customerData.map((data) => data.id).indexOf(id);
-        this.customerData.splice(z, 1);
-      });
-    this.$store.dispatch("deleteCustomerData", allData);
-  }
-  EditData(item) {
-    this.$store.dispatch("editCustomerData", item);
-  }
-}
-</script>
 
 <style scoped>
 .data-icons {

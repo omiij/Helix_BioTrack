@@ -5,22 +5,22 @@
         <div class="top-div">
           <v-switch
             @change="savePermission($event, 'productsList')"
-            v-model="this.$store.state.productsList"
+            v-model="productsList"
             :label="`Products`"
           ></v-switch>
           <v-switch
             @change="savePermission($event, 'editProductList')"
-            v-model="this.$store.state.editProductList"
+            v-model="editProductList"
             :label="`Edit Products`"
           ></v-switch>
           <v-switch
             @change="savePermission($event, 'removeProductList')"
-            v-model="this.$store.state.removeProductList"
+            v-model="removeProductList"
             :label="`Remove Products`"
           ></v-switch>
           <v-switch
             @change="savePermission($event, 'productDetailsList')"
-            v-model="this.$store.state.productDetailsList"
+            v-model="editProductList"
             :label="`Product Details`"
           ></v-switch></div
       ></v-layout>
@@ -29,53 +29,53 @@
         <div class="left-div">
           <v-switch
             @change="savePermission($event, 'editProduct')"
-            v-model="this.$store.state.editProductSwitch"
+            v-model="editProductSwitch"
             :label="`Edit Product Details`"
             class="details"
           ></v-switch>
           <v-switch
             @change="savePermission($event, 'productName')"
-            v-model="this.$store.state.productName"
-            :disabled="this.$store.state.editProductSwitch == false"
+            v-model="productName"
+            :disabled="editProductSwitch == false"
             :label="`Product Name`"
           ></v-switch>
 
           <v-switch
             @change="savePermission($event, 'size')"
-            v-model="this.$store.state.productSize"
-            :disabled="this.$store.state.editProductSwitch == false"
+            v-model="productSize"
+            :disabled="editProductSwitch == false"
             :label="`Product Size`"
           ></v-switch>
           <v-switch
             @change="savePermission($event, 'color')"
-            v-model="this.$store.state.productColor"
-            :disabled="this.$store.state.editProductSwitch == false"
+            v-model="productColor"
+            :disabled="editProductSwitch == false"
             :label="`Product Color`"
           ></v-switch>
           <v-switch
             @change="savePermission($event, 'gender')"
-            v-model="this.$store.state.gender"
-            :disabled="this.$store.state.editProductSwitch == false"
+            v-model="gender"
+            :disabled="editProductSwitch == false"
             :label="`Gender`"
           ></v-switch>
         </div>
 
         <div class="right-div">
           <v-switch
-            v-model="this.$store.state.editPriceSwitch"
+            v-model="editPriceSwitch"
             @change="savePermission($event, 'editPrice')"
             :label="`Edit Price Details`"
             class="details"
           ></v-switch>
           <v-switch
-            v-model="this.$store.state.productPrice"
-            :disabled="this.$store.state.editPriceSwitch == false"
+            v-model="productPrice"
+            :disabled="editPriceSwitch == false"
             @change="savePermission($event, 'price')"
             :label="`Product Price`"
           ></v-switch>
           <v-switch
-            v-model="this.$store.state.productPercentage"
-            :disabled="this.$store.state.editPriceSwitch == false"
+            v-model="productPercentage"
+            :disabled="editPriceSwitch == false"
             @change="savePermission($event, 'percentage')"
             :label="`Product Tax`"
           ></v-switch>
@@ -88,22 +88,6 @@
     </div>
   </v-card>
 </template>
-
-<script>
-import { Component, Vue } from "vue-property-decorator";
-import axios from "axios";
-import store from "../store";
-
-@Component({
-  components: {},
-})
-export default class Permission extends Vue {
-  savePermission(event, switchVar) {
-    console.log(event, switchVar);
-    this.$store.dispatch("savePermission", { event, switchVar });
-  }
-}
-</script>
 
 <style scoped>
 .main-container {

@@ -3,15 +3,15 @@
     <v-card
       class="ma-10 reportBorder"
       :style="{
-        borderColor: this.$store.state.reportBorder,
+        borderColor: reportBorder,
       }"
       justify-center
     >
       <v-simple-table
         height="auto"
         :style="{
-          color: this.$store.state.reportPageColor,
-          fontSize: this.$store.state.reportFontSize,
+          color: reportPageColor,
+          fontSize: reportFontSize,
         }"
       >
         <template v-slot:default>
@@ -43,7 +43,7 @@
           <tbody>
             <tr v-for="(item, index) in getData" v-bind:key="item.id">
               <td>{{ index + 1 }}</td>
-              <td v-if="$store.state.productsList">{{ item.product }}</td>
+              <td v-if="productsList">{{ item.product }}</td>
               <td>
                 {{ item.gender }}
               </td>
@@ -75,24 +75,6 @@
     </v-card>
   </div>
 </template>
-
-<script>
-import { Component, Vue } from "vue-property-decorator";
-import axios from "axios";
-import store from "../store";
-
-@Component({
-  components: {},
-})
-export default class ReportTool extends Vue {
-  getData = [];
-
-  async created() {
-    let response = await axios.get("http://localhost:3000/buyCart");
-    this.getData = response.data;
-  }
-}
-</script>
 
 <style scoped>
 .reportBorder {

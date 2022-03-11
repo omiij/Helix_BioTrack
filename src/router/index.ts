@@ -1,13 +1,13 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import ProductList from "../components/ProductsList.vue";
-import ProductForm from "../components/ProductForm.vue";
-import Permission from "../components/Permission.vue";
-import Sales from "../components/Sales.vue";
-import ReportTool from "../components/ReportTool.vue";
-import CustomerProfile from "../components/Customer/CustomerProfile.vue";
-import CustomerDetails from "../components/Customer/CustomerDetails.vue";
-import StyleManager from "../components/Style/StyleManager.vue";
+import ProductList from "../components/Products/productList";
+import ProductForm from "../components/Products/ProductForm";
+import Permission from "../components/Permission/Permission";
+import Sales from "../components/Sale/Sales";
+import ReportTool from "../components/Report/Report";
+import CustomerProfile from "../components/Customer/CustomerProfile";
+import CustomerDetails from "../components/Customer/CustomerDetails";
+import StyleManager from "../components/Style/StyleManager";
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [

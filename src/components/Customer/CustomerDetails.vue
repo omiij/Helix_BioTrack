@@ -122,12 +122,7 @@
                     required
                   ></v-text-field>
 
-                  <v-btn
-                    @click="submit"
-                    icon
-                    block
-                    v-if="this.$store.state.CutomerToggle"
-                  >
+                  <v-btn @click="submit" icon block v-if="CutomerToggle">
                     <v-icon color="green lighten-1"> mdi-plus-circle</v-icon
                     >Save</v-btn
                   >
@@ -144,122 +139,6 @@
     </v-form>
   </div>
 </template>
-
-<script>
-import { Component, Vue } from "vue-property-decorator";
-import axios from "axios";
-import store from "C:/Users/hp/OneDrive/Desktop/VUE_Projects/HelixBio/my-app/src/store";
-
-@Component({
-  components: {},
-})
-export default class CustomerDetails extends Vue {
-  toggle = this.$store.state.CutomerToggle;
-  customerFirstName = this.$store.state.customerFirstName;
-  customerLastName = this.$store.state.customerLastName;
-  customerGender = this.$store.state.customerGender;
-  customerNumber = this.$store.state.customerNumber;
-  cutomerAge = this.$store.state.cutomerAge;
-
-  customerLocality = this.$store.state.customerLocality;
-  customerCity = this.$store.state.customerCity;
-  customerState = this.$store.state.customerState;
-  customerCountry = this.$store.state.customerCountry;
-  customerPin = this.$store.state.customerPin;
-  tab = null;
-
-  async submit() {
-    let allData = {
-      firstName: this.customerFirstName,
-      lastName: this.customerLastName,
-      number: this.customerNumber,
-      gender: this.customerGender,
-      age: this.cutomerAge,
-
-      locality: this.customerLocality,
-      city: this.customerCity,
-      state: this.customerState,
-      country: this.customerCountry,
-      pin: this.customerPin,
-    };
-    if (
-      this.customerFirstName != "" &&
-      this.customerLastName != "" &&
-      this.customerGender != "" &&
-      this.customerNumber > 0 &&
-      this.cutomerAge > 0 &&
-      this.customerPin > 0 &&
-      this.customerLocality != "" &&
-      this.customerCity != "" &&
-      this.customerState != "" &&
-      this.customerCountry != ""
-    ) {
-      const response = await axios.post(
-        "http://localhost:3000/customerData",
-        allData
-      );
-      this.$store.dispatch("addCustomerData");
-      this.customerFirstName = "";
-      this.customerLastName = "";
-      this.customerGender = "";
-      this.customerNumber = 0;
-      this.cutomerAge = 0;
-      this.customerPin = 0;
-      this.customerLocality = "";
-      this.customerCity = "";
-      this.customerState = "";
-      this.customerCountry = "";
-    } else {
-      alert("Plesae fill all the fields");
-    }
-  }
-  async ChangeData() {
-    let allData = {
-      firstName: this.customerFirstName,
-      lastName: this.customerLastName,
-      number: this.customerNumber,
-      gender: this.customerGender,
-      age: this.cutomerAge,
-
-      locality: this.customerLocality,
-      city: this.customerCity,
-      state: this.customerState,
-      country: this.customerCountry,
-      pin: this.customerPin,
-    };
-    if (
-      this.customerFirstName != "" &&
-      this.customerLastName != "" &&
-      this.customerGender != "" &&
-      this.customerNumber > 0 &&
-      this.cutomerAge > 0 &&
-      this.customerPin > 0 &&
-      this.customerLocality != "" &&
-      this.customerCity != "" &&
-      this.customerState != "" &&
-      this.customerCountry != ""
-    ) {
-      const response = await axios.put(
-        "http://localhost:3000/customerData/" + this.$store.state.csId + "/",
-        allData
-      );
-      this.$store.dispatch("addCustomerData");
-      this.customerFirstName = "";
-      this.customerLastName = "";
-      this.customerGender = "";
-      this.customerNumber = 0;
-      this.cutomerAge = 0;
-      this.customerPin = 0;
-      this.customerLocality = "";
-      this.customerCity = "";
-      this.customerState = "";
-      this.customerCountry = "";
-    } else {
-      alert("Plesae fill all the fields");
-    }
-  }
-}
-</script>
 
 <style scoped>
 .v-input {

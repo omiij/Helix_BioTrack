@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
-
+import { CustomerModule } from "../store/CustomerStore/CustomerIndex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -134,7 +134,108 @@ export default new Vuex.Store({
 
     //style Manager
   },
-  getters: {},
+  getters: {
+    //ProductList
+    productcolor(state) {
+      return state.productPageColor;
+    },
+    productFontSize(state) {
+      return state.productFontSize;
+    },
+    productBorder(state) {
+      return state.productBorder;
+    },
+    productsList(state) {
+      return state.productsList;
+    },
+    productDetailsList(state) {
+      return state.productDetailsList;
+    },
+    editProductList(state) {
+      return state.editProductList;
+    },
+    removeProductList(state) {
+      return state.removeProductList;
+    },
+    //ProductList
+
+    //Product Form
+    productName(state) {
+      return state.productName;
+    },
+    productSize(state) {
+      return state.productSize;
+    },
+    gender(state) {
+      return state.gender;
+    },
+    productColor(state) {
+      return state.productColor;
+    },
+    productPrice(state) {
+      return state.productPrice;
+    },
+    productPercentage(state) {
+      return state.productPercentage;
+    },
+    toggle(state) {
+      return state.toggle;
+    },
+    //Product Form
+    //Permission Manager
+    editProductSwitch(state) {
+      return state.editProductSwitch;
+    },
+    editPriceSwitch(state) {
+      return state.editPriceSwitch;
+    },
+    //Permission Manager
+    //salePage
+    saleBorder(state) {
+      return state.saleBorder;
+    },
+    salePageColor(state) {
+      return state.salePageColor;
+    },
+    saleFontSize(state) {
+      return state.saleFontSize;
+    },
+    saleButtonColor(state) {
+      return state.saleButtonColor;
+    },
+    //salePage
+    //style Manager
+    styleColors(state) {
+      return state.styleColors;
+    },
+    styleSize(state) {
+      return state.styleSize;
+    },
+    styleButtonColor(state) {
+      return state.styleButtonColor;
+    },
+    styleBorder(state) {
+      return state.styleBorder;
+    },
+    reportBorder(state) {
+      return state.reportBorder;
+    },
+    reportPageColor(state) {
+      return state.reportPageColor;
+    },
+    reportFontSize(state) {
+      return state.reportFontSize;
+    },
+    //style Manager
+    //CustomerDetails
+    // CutomerToggle(state) {
+    //   return state.CutomerToggle;
+    // },
+    //CustomerDetails
+    //Customer Form
+
+    //Customer Form
+  },
   mutations: {
     //Product-Form and Product-List
     ADD_DATA(state, allInputs) {
@@ -271,24 +372,24 @@ export default new Vuex.Store({
       }
     },
     //customer profile manager
-    ADD_CUSTOMER_DATA(state, cutomerData) {
-      state.cutomerDetails = cutomerData;
-    },
-    EDIT_CUSTOMER_DATA(state, item) {
-      state.CutomerToggle = false;
-      state.csId = item.id;
-      state.customerFirstName = item.firstName;
-      state.customerLastName = item.lastName;
-      state.customerNumber = item.number;
-      state.customerGender = item.gender;
-      state.cutomerAge = item.age;
-      state.customerLocality = item.locality;
+    // ADD_CUSTOMER_DATA(state, cutomerData) {
+    //   state.cutomerDetails = cutomerData;
+    // },
+    // EDIT_CUSTOMER_DATA(state, item) {
+    //   state.CutomerToggle = false;
+    //   state.csId = item.id;
+    //   state.customerFirstName = item.firstName;
+    //   state.customerLastName = item.lastName;
+    //   state.customerNumber = item.number;
+    //   state.customerGender = item.gender;
+    //   state.cutomerAge = item.age;
+    //   state.customerLocality = item.locality;
 
-      state.customerCity = item.city;
-      state.customerState = item.state;
-      state.customerCountry = item.country;
-      state.customerPin = item.pin;
-    },
+    //   state.customerCity = item.city;
+    //   state.customerState = item.state;
+    //   state.customerCountry = item.country;
+    //   state.customerPin = item.pin;
+    // },
     //customer profile manager
   },
   actions: {
@@ -325,22 +426,22 @@ export default new Vuex.Store({
     },
 
     //Permission Manager
-    savePermission({ commit }, { event, switchVar }) {
+    savePermissions({ commit }, { event, switchVar }) {
       commit("SAVE_PERMISSION", { event, switchVar });
     },
     deleteDataCart({ commit }) {
       commit("DELETE_DATA_CART");
     },
     //Customer profile manager
-    async addCustomerData({ commit }) {
-      const response = await axios.get("http://localhost:3000/customerData");
-      commit("ADD_CUSTOMER_DATA", response.data);
-    },
-    editCustomerData({ commit }, item) {
-      commit("EDIT_CUSTOMER_DATA", item);
-    },
+    // async addCustomerData({ commit }) {
+    //   const response = await axios.get("http://localhost:3000/customerData");
+    //   commit("ADD_CUSTOMER_DATA", response.data);
+    // },
+    // editCustomerData({ commit }, item) {
+    //   commit("EDIT_CUSTOMER_DATA", item);
+    // },
     //Customer profile manager
   },
 
-  modules: {},
+  modules: { CustomerModule },
 });

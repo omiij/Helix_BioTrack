@@ -30,7 +30,7 @@
                 <v-card-title>
                   <v-text-field
                     label="Product"
-                    :disbled="!$store.state.productName"
+                    :disbled="!productName"
                     v-model="productInput"
                     md="12"
                     ref="form"
@@ -38,7 +38,7 @@
                   ></v-text-field>
 
                   <v-select
-                    :disabled="!$store.state.productSize"
+                    :disabled="!productSize"
                     color="primary"
                     v-model="sizeInput"
                     label="Select Size"
@@ -49,7 +49,7 @@
 
                   <v-radio-group
                     v-model="genderInput"
-                    :disabled="!$store.state.gender"
+                    :disabled="!gender"
                     ref="form"
                     row
                   >
@@ -59,7 +59,7 @@
                   </v-radio-group>
 
                   <v-select
-                    :disabled="!$store.state.productColor"
+                    :disabled="!productColor"
                     v-model="colorInput"
                     color="primary"
                     label="Select color"
@@ -80,7 +80,7 @@
                 <v-card-title>
                   <v-text-field
                     label="Price"
-                    :disabled="!$store.state.productPrice"
+                    :disabled="!productPrice"
                     v-model="priceInput"
                     type="number"
                     ref="form"
@@ -90,18 +90,13 @@
                   <v-text-field
                     label="Tax Percentag(%)"
                     ref="form"
-                    :disabled="!$store.state.productPercentage"
+                    :disabled="!productPercentage"
                     v-model="percentageInput"
                     type="number"
                     md="12"
                   ></v-text-field>
 
-                  <v-btn
-                    @click="submit"
-                    icon
-                    block
-                    v-if="this.$store.state.toggle"
-                  >
+                  <v-btn @click="submit" icon block v-if="toggle">
                     <v-icon color="green lighten-1"> mdi-cart-check</v-icon
                     >save</v-btn
                   >
@@ -119,82 +114,6 @@
     </v-form>
   </div>
 </template>
-
-<script>
-import { Component, Vue } from "vue-property-decorator";
-import axios from "axios";
-import store from "../store";
-
-@Component({
-  components: {},
-})
-export default class ProductForm extends Vue {
-  toggle = this.$store.state.toggle;
-  productInput = this.$store.state.productInput;
-  sizeInput = this.$store.state.sizeInput;
-  genderInput = this.$store.state.genderInput;
-  colorInput = this.$store.state.colorInput;
-  priceInput = this.$store.state.priceInput;
-  percentageInput = this.$store.state.percentageInput;
-  id = this.$store.state.id;
-  sizes = this.$store.state.sizes;
-  color = this.$store.state.color;
-  tab = null;
-
-  async ChangeData() {
-    await axios.put(`http://localhost:3000/Products/${this.$store.state.id}/`, {
-      product: this.productInput,
-      size: this.sizeInput,
-      gender: this.genderInput,
-      color: this.colorInput,
-      price: this.priceInput,
-      percentage: this.percentageInput,
-    });
-    this.$store.state.toggle = true;
-    this.productInput = "";
-    this.sizeInput = "";
-    this.genderInput = "";
-    this.colorInput = "";
-    this.priceInput = "";
-    this.percentageInput = "";
-  }
-
-  async submit() {
-    let allData = {
-      product: this.productInput,
-      size: this.sizeInput,
-      gender: this.genderInput,
-      color: this.colorInput,
-      price: this.priceInput,
-      percentage: this.percentageInput,
-      quantity: 0,
-      total: 0,
-    };
-    if (
-      this.productInput != "" &&
-      this.sizeInput != "" &&
-      this.genderInput != "" &&
-      this.colorInput != "" &&
-      this.priceInput > 0 &&
-      this.percentageInput > 0
-    ) {
-      const response = await axios.post(
-        "http://localhost:3000/Products",
-        allData
-      );
-      this.$store.dispatch("addData");
-      this.productInput = "";
-      this.sizeInput = "";
-      this.genderInput = "";
-      this.colorInput = "";
-      this.priceInput = "";
-      this.percentageInput = "";
-    } else {
-      console.log("Please submit the form");
-    }
-  }
-}
-</script>
 
 <style scoped>
 .v-input {
