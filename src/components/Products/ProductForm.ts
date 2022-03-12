@@ -1,7 +1,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
 import Template from "C:/Users/hp/OneDrive/Desktop/VUE_Projects/HelixBio/my-app/src/components/Products/ProductForm.vue";
-import store from "C:/Users/hp/OneDrive/Desktop/VUE_Projects/HelixBio/my-app/src/store";
+import { state } from "C:/Users/hp/OneDrive/Desktop/VUE_Projects/HelixBio/my-app/src/store/CustomerStore/AllState";
 import { mapGetters, mapActions } from "vuex";
 @Component({
   mixins: [Template],
@@ -14,28 +14,36 @@ import { mapGetters, mapActions } from "vuex";
       "productColor",
       "productPrice",
       "productPercentage",
-      "toggle",
+      "toggles",
+      "color",
+      "sizes",
+      "ID",
+      "productInputs",
+      "sizeInputs",
+      "genderInputs",
     ]),
   },
   methods: {
-    ...mapActions([]),
+    ...mapActions(["addData"]),
   },
 })
 export default class ProductForm extends Vue {
-  toggle = this.$store.state.toggle;
-  productInput = this.$store.state.productInput;
-  sizeInput = this.$store.state.sizeInput;
-  genderInput = this.$store.state.genderInput;
-  colorInput = this.$store.state.colorInput;
-  priceInput = this.$store.state.priceInput;
-  percentageInput = this.$store.state.percentageInput;
-  id = this.$store.state.id;
-  sizes = this.$store.state.sizes;
-  color = this.$store.state.color;
+  addData!: any;
+
+  toggle = state.toggle;
+  productInput = state.productInput;
+  sizeInput = state.sizeInput;
+  genderInput = state.genderInput;
+  colorInput = state.colorInput;
+  priceInput = state.priceInput;
+  percentageInput = state.percentageInput;
+
   tab = null;
 
   async ChangeData() {
-    await axios.put(`http://localhost:3000/Products/${this.$store.state.id}/`, {
+    this.toggle = !this.toggle;
+    state.toggle = !state.toggle;
+    await axios.put(`http://localhost:3000/Products/${state.id}/`, {
       product: this.productInput,
       size: this.sizeInput,
       gender: this.genderInput,
@@ -43,13 +51,20 @@ export default class ProductForm extends Vue {
       price: this.priceInput,
       percentage: this.percentageInput,
     });
-    this.$store.state.toggle = true;
+
     this.productInput = "";
     this.sizeInput = "";
     this.genderInput = "";
     this.colorInput = "";
-    this.priceInput = "";
-    this.percentageInput = "";
+    this.priceInput = 0;
+    this.percentageInput = 0;
+
+    state.productInput = "";
+    state.sizeInput = "";
+    state.genderInput = "";
+    state.colorInput = "";
+    state.priceInput = 0;
+    state.percentageInput = 0;
   }
 
   async submit() {
@@ -75,13 +90,13 @@ export default class ProductForm extends Vue {
         "http://localhost:3000/Products",
         allData
       );
-      this.$store.dispatch("addData");
+      this.addData();
       this.productInput = "";
       this.sizeInput = "";
       this.genderInput = "";
       this.colorInput = "";
-      this.priceInput = "";
-      this.percentageInput = "";
+      this.priceInput = 0;
+      this.percentageInput = 0;
     } else {
       console.log("Please submit the form");
     }

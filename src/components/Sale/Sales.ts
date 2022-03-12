@@ -2,6 +2,7 @@ import Template from "../Sale/SalesComp.vue";
 import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
 import { mapGetters, mapActions } from "vuex";
+import { state } from "@/store/CustomerStore/AllState";
 @Component({
   mixins: [Template],
   components: {},
@@ -11,6 +12,7 @@ import { mapGetters, mapActions } from "vuex";
       "salePageColor",
       "saleFontSize",
       "saleButtonColor",
+      "totalAmount",
     ]),
   },
   methods: {
@@ -18,6 +20,9 @@ import { mapGetters, mapActions } from "vuex";
   },
 })
 export default class Sales extends Vue {
+  //from state
+  totalAmount = state.totalAmount;
+  //from state
   deleteDataCart!: any;
   overlay = false;
   absolute = true;

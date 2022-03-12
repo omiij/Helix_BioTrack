@@ -30,6 +30,12 @@ export default class ProductList extends Vue {
   editData!: any;
   deleteData!: any;
 
+  async created() {
+    const response = await axios.get("http://localhost:3000/products");
+    this.getData = response.data;
+    this.Search();
+  }
+
   Search() {
     const z = this.getData.filter((arr: any) =>
       arr.product
@@ -38,12 +44,6 @@ export default class ProductList extends Vue {
         .includes(this.search.trim().toLocaleLowerCase())
     );
     this.filteredData = z;
-  }
-
-  async created() {
-    const response = await axios.get("http://localhost:3000/products");
-    this.getData = response.data;
-    this.Search();
   }
 
   async DeleteData(id: number) {
