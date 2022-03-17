@@ -1,35 +1,44 @@
 import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
 import Template from "../Style/StyleManager.vue";
-import { mapGetters } from "vuex";
+import { Getter } from "vuex-class";
+import { state } from "@/store/StyleStore/StyleState";
 @Component({
   mixins: [Template],
-  components: {},
-  computed: {
-    ...mapGetters([
-      "styleColors",
-      "styleSize",
-      "styleButtonColor",
-      "styleBorder",
-    ]),
-  },
+  // components: {},
+  // computed: {
+  //   ...mapGetters([
+  //     "styleColors",
+  //     "styleSize",
+  //     "styleButtonColor",
+  //     "styleBorder",
+  //   ]),
+  // },
 })
 export default class ReportTool extends Vue {
+  @Getter("styleColors", { namespace: "StyleModule" })
+  public styleColors!: [];
+  @Getter("styleSize", { namespace: "StyleModule" })
+  public styleSize!: [];
+  @Getter("styleButtonColor", { namespace: "StyleModule" })
+  public styleButtonColor!: [];
+  @Getter("styleBorder", { namespace: "StyleModule" })
+  public styleBorder!: [];
   //product//
-  productColor = null;
-  productFontSize = null;
-  productButtonColor = null;
-  productBorder = null;
+  productColor = state.productPageColor;
+  productFontSize = state.productFontSize;
+  productButtonColor = state.productButtonColor;
+  productBorder = state.productBorder;
 
-  salePageColor = null;
-  saleFontSize = null;
-  saleButtonColor = null;
-  saleBorder = null;
+  salePageColor = state.salePageColor;
+  saleFontSize = state.saleFontSize;
+  saleButtonColor = state.saleButtonColor;
+  saleBorder = state.saleBorder;
 
-  reportPageColor = null;
-  reportFontSize = null;
-  reportButtonColor = null;
-  reportBorder = null;
+  reportPageColor = state.reportPageColor;
+  reportFontSize = state.reportFontSize;
+  reportButtonColor = state.productButtonColor;
+  reportBorder = state.reportBorder;
   //   async created() {
   //     let response = await axios.get("http://localhost:3000/customerData");
   //     this.customerData = response.data;
@@ -37,21 +46,21 @@ export default class ReportTool extends Vue {
   //product//
 
   saveProductStyle() {
-    this.$store.state.productPageColor = this.productColor;
-    this.$store.state.productFontSize = this.productFontSize;
-    this.$store.state.productButtonColor = this.productButtonColor;
-    this.$store.state.productBorder = this.productBorder;
+    state.productPageColor = this.productColor;
+    state.productFontSize = this.productFontSize;
+    state.productButtonColor = this.productButtonColor;
+    state.productBorder = this.productBorder;
   }
   saveSaleStyle() {
-    this.$store.state.salePageColor = this.salePageColor;
-    this.$store.state.saleFontSize = this.saleFontSize;
-    this.$store.state.saleButtonColor = this.saleButtonColor;
-    this.$store.state.saleBorder = this.saleBorder;
+    state.salePageColor = this.salePageColor;
+    state.saleFontSize = this.saleFontSize;
+    state.saleButtonColor = this.saleButtonColor;
+    state.saleBorder = this.saleBorder;
   }
   saveReportStyle() {
-    this.$store.state.reportPageColor = this.reportPageColor;
-    this.$store.state.reportFontSize = this.reportFontSize;
-    this.$store.state.reportButtonColor = this.reportButtonColor;
-    this.$store.state.reportBorder = this.reportBorder;
+    state.reportPageColor = this.reportPageColor;
+    state.reportFontSize = this.reportFontSize;
+    state.reportButtonColor = this.reportButtonColor;
+    state.reportBorder = this.reportBorder;
   }
 }

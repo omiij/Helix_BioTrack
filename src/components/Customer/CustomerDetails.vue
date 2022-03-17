@@ -122,11 +122,11 @@
                     required
                   ></v-text-field>
 
-                  <v-btn @click="submit" icon block v-if="CutomerToggle">
+                  <v-btn @click="submit" icon block v-if="toggle">
                     <v-icon color="green lighten-1"> mdi-plus-circle</v-icon
                     >Save</v-btn
                   >
-                  <v-btn v-else v-on:click="ChangeData" icon block>
+                  <v-btn v-else @click="ChangeData" icon block>
                     <v-icon color="green lighten-1"> mdi-cart-check</v-icon
                     >Update</v-btn
                   >

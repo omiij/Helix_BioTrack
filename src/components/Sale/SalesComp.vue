@@ -64,7 +64,7 @@
               <br />
               <v-btn
                 :style="{
-                  backgroundColor: saletButton,
+                  backgroundColor: saleButtonColor,
                 }"
                 @click="overlay = false"
                 v-on:click="addToCart(item, qty)"
@@ -94,13 +94,13 @@
             ></router-link
           >
 
-          <v-icon color="red" class="two-btn" v-on:click="deleteAllData">
+          <v-icon color="red" class="two-btn" @click="deleteAllData">
             mdi-delete</v-icon
           >
         </v-card>
 
         <v-card flat justify="center">
-          <v-row align="center ">
+          <v-row align="center">
             <v-col class="d-flex" cols="12" sm="12">
               <v-select
                 :style="{
@@ -157,7 +157,7 @@
                   <v-card-text>
                     <div class="text-h2 pa-12">
                       <v-card-text>
-                        <h1>Rs.{{ $store.state.totalAmount }}</h1>
+                        <h1>Rs.{{ totalAmount }}</h1>
                       </v-card-text>
                       <v-card-text color="primary" class="redColor">
                         <h1><h3>**Including all taxes</h3></h1>

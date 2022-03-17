@@ -1,21 +1,18 @@
 import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
 import Template from "../Customer/CustomerProfile.vue";
-import { mapGetters, mapActions } from "vuex";
+import { Getter, Action } from "vuex-class";
+import { mapGetters } from "vuex";
 
 @Component({
   mixins: [Template],
   components: {},
-  computed: {
-    ...mapGetters(["removeProductList"]),
-  },
-  methods: {
-    ...mapActions(["editCustomerData"]),
-  },
 })
 export default class ProductList extends Vue {
+  @Action("editCustomerData", { namespace: "CustomerModule" })
+  public editCustomerData!: any;
   customerData = [];
-  editCustomerData!: any;
+
   async created() {
     const response = await axios.get("http://localhost:3000/customerData");
     this.customerData = response.data;

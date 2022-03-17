@@ -1,11 +1,23 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import axios from "axios";
-import { CustomerModule } from "../store/CustomerStore/AlIndex";
+// import axios from "axios";
+import { ProductModule } from "./ProductStore/ProductIndex";
+import { PermissionModule } from "./PermissionStore/PermissionIndex";
+import { CustomerModule } from "./CustomerStore/CustomerIndex";
+import { SaleModule } from "../store/SaleStore/SaleIndex";
+import { StyleModule } from "../store/StyleStore/StyleIndex";
+import { ReportModule } from "./ReportStore/ReportIndex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: { CustomerModule },
+  modules: {
+    ProductModule,
+    PermissionModule,
+    CustomerModule,
+    SaleModule,
+    StyleModule,
+    ReportModule,
+  },
   // state: {
   //   //Product-Form and Product-List
   //   products: [] as any[],

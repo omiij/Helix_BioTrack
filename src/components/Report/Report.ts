@@ -1,20 +1,21 @@
 import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
 import Template from "./ReportTool.vue";
-import { mapGetters } from "vuex";
+import { Getter } from "vuex-class";
 @Component({
   mixins: [Template],
-  components: {},
-  computed: {
-    ...mapGetters([
-      "reportBorder",
-      "reportPageColor",
-      "reportFontSize",
-      "productsList",
-    ]),
-  },
+  // components: {},
+  // computed: {
+  //   ...mapGetters(["reportBorder", "reportPageColor", "reportFontSize"]),
+  // },
 })
 export default class ReportTool extends Vue {
+  @Getter("reportBorder", { namespace: "StyleModule" })
+  public reportBorder!: boolean;
+  @Getter("reportPageColor", { namespace: "StyleModule" })
+  public reportPageColor!: boolean;
+  @Getter("reportFontSize", { namespace: "StyleModule" })
+  public reportFontSize!: boolean;
   getData = [];
 
   async created() {

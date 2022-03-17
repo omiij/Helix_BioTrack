@@ -1,29 +1,30 @@
 import Template from "../Sale/SalesComp.vue";
 import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
-import { mapGetters, mapActions } from "vuex";
-import { state } from "@/store/CustomerStore/AllState";
+import { Getter, Action } from "vuex-class";
+import { state } from "@/store/SaleStore/SaleState";
 @Component({
   mixins: [Template],
   components: {},
-  computed: {
-    ...mapGetters([
-      "saleBorder",
-      "salePageColor",
-      "saleFontSize",
-      "saleButtonColor",
-      "totalAmount",
-    ]),
-  },
-  methods: {
-    ...mapActions([]),
-  },
 })
 export default class Sales extends Vue {
+  @Getter("saleBorder", { namespace: "StyleModule" })
+  public saleBorder!: boolean;
+  @Getter("salePageColor", { namespace: "StyleModule" })
+  public salePageColor!: boolean;
+  @Getter("saleFontSize", { namespace: "StyleModule" })
+  public saleFontSize!: boolean;
+  @Getter("saleButtonColor", { namespace: "StyleModule" })
+  public saleButtonColor!: boolean;
+
+  @Action("deleteDataCart", { namespace: "SaleModule" })
+  public deleteDataCart!: any;
+  @Action("addToCart", { namespace: "SaleModule" })
+  public addToCarts!: any;
   //from state
   totalAmount = state.totalAmount;
   //from state
-  deleteDataCart!: any;
+
   overlay = false;
   absolute = true;
   selectCustomer = "";
@@ -32,10 +33,8 @@ export default class Sales extends Vue {
   qty = 0;
   activeOverlayId = 0;
   result = false;
-  cartData = this.$store.state.cartProducts;
+  cartData: any = state.cartProducts;
   getData = [];
-
-  total_amount = localStorage.getItem("total_Amount");
 
   sendCustomerData() {
     const People = this.customerData.filter((data: any) => {
@@ -53,11 +52,14 @@ export default class Sales extends Vue {
     const allitems = responseCart.data;
     const customer = await axios.get("http://localhost:3000/customerData");
     this.customerData = customer.data;
-    this.$store.state.totalAmount = allitems.reduce((acc: any, curr: any) => {
-      return acc + curr.total;
+    this.totalAmount = allitems.reduce((acc: any, curr: any) => {
+      return parseInt(acc + curr.total);
     }, 0);
   }
   async addToCart(item: any, count: string) {
+    if (this.qty === 0) {
+      return;
+    }
     const TempItem = this.cartData.filter((data: any) => {
       return data.id === item.id;
     });
@@ -82,7 +84,7 @@ export default class Sales extends Vue {
     }
 
     this.overlay = false;
-    this.$store.dispatch("addToCart", { item, count });
+    this.addToCarts({ item, count });
     setTimeout(() => {
       window.location.reload();
     }, 100);
@@ -92,7 +94,8 @@ export default class Sales extends Vue {
     for (let a = 0; a <= this.cartData.length + 2; a++) {
       this.cartData.pop();
     }
-    this.$store.state.totalAmount = 0;
+    state.totalAmount = 0;
+    this.totalAmount = 0;
     this.deleteDataCart();
   }
   async buyNow() {
@@ -137,7 +140,7 @@ export default class Sales extends Vue {
         pin: customerData.pin,
       });
     });
-
+    this.totalAmount = 0;
     this.deleteAllData();
   }
 

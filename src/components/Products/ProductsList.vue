@@ -59,7 +59,7 @@
                     color="orange lighten-2"
                     class="data-icons"
                     href="/product"
-                    v-on:click="EditData(item)"
+                    @click="EditData(item)"
                     v-if="editProductList"
                     >mdi-grease-pencil</v-icon
                   ></router-link
@@ -70,7 +70,7 @@
                     class="data-icons"
                     color="red lighten-1"
                     v-if="removeProductList"
-                    v-on:click="DeleteData(item.id)"
+                    @click="DeleteData(item.id)"
                     >mdi-delete</v-icon
                   ></span
                 >

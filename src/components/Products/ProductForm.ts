@@ -1,34 +1,34 @@
 import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
 import Template from "C:/Users/hp/OneDrive/Desktop/VUE_Projects/HelixBio/my-app/src/components/Products/ProductForm.vue";
-import { state } from "C:/Users/hp/OneDrive/Desktop/VUE_Projects/HelixBio/my-app/src/store/CustomerStore/AllState";
-import { mapGetters, mapActions } from "vuex";
+import { state } from "@/store/ProductStore/ProductState";
+import { Getter, Action } from "vuex-class";
 @Component({
   mixins: [Template],
   components: {},
-  computed: {
-    ...mapGetters([
-      "productName",
-      "productSize",
-      "gender",
-      "productColor",
-      "productPrice",
-      "productPercentage",
-      "toggles",
-      "color",
-      "sizes",
-      "ID",
-      "productInputs",
-      "sizeInputs",
-      "genderInputs",
-    ]),
-  },
-  methods: {
-    ...mapActions(["addData"]),
-  },
 })
 export default class ProductForm extends Vue {
-  addData!: any;
+  @Getter("color", { namespace: "ProductModule" })
+  public color!: [];
+  @Getter("sizes", { namespace: "ProductModule" })
+  public sizes!: [];
+  @Getter("productName", { namespace: "PermissionModule" })
+  public productName!: [];
+  @Getter("productSize", { namespace: "PermissionModule" })
+  public productSize!: [];
+  @Getter("gender", { namespace: "PermissionModule" })
+  public gender!: [];
+  @Getter("productColor", { namespace: "PermissionModule" })
+  public productColor!: [];
+  @Getter("productPrice", { namespace: "PermissionModule" })
+  public productPrice!: [];
+  @Getter("productPercentage", { namespace: "PermissionModule" })
+  public productPercentage!: [];
+
+  @Action("addData", { namespace: "ProductModule" })
+  public addData!: any;
+  @Action("products", { namespace: "ProductModule" })
+  public products!: any;
 
   toggle = state.toggle;
   productInput = state.productInput;
@@ -37,7 +37,6 @@ export default class ProductForm extends Vue {
   colorInput = state.colorInput;
   priceInput = state.priceInput;
   percentageInput = state.percentageInput;
-
   tab = null;
 
   async ChangeData() {

@@ -90,6 +90,7 @@
                   <v-text-field
                     label="Tax Percentag(%)"
                     ref="form"
+                    
                     :disabled="!productPercentage"
                     v-model="percentageInput"
                     type="number"
@@ -101,7 +102,7 @@
                     >save</v-btn
                   >
 
-                  <v-btn v-else v-on:click="ChangeData" icon block>
+                  <v-btn v-else @click="ChangeData" icon block>
                     <v-icon color="green lighten-1"> mdi-cart-check</v-icon
                     >Update</v-btn
                   >

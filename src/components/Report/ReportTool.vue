@@ -43,7 +43,7 @@
           <tbody>
             <tr v-for="(item, index) in getData" v-bind:key="item.id">
               <td>{{ index + 1 }}</td>
-              <td v-if="productsList">{{ item.product }}</td>
+              <td>{{ item.product }}</td>
               <td>
                 {{ item.gender }}
               </td>

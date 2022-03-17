@@ -12,9 +12,11 @@
 import { Component, Vue } from "vue-property-decorator";
 // import AllData from "./All_Data/All_data.vue";
 import NavBar from "../src/NavBar/NavBar.vue";
+import MenuBar from "./MegaMenu/MenuBar.vue";
 @Component({
   components: {
     NavBar,
+    MenuBar,
   },
 })
 export default class App extends Vue {}

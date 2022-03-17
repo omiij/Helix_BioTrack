@@ -24,7 +24,7 @@
           :items="styleBorder"
           label="Select Border Color"
         ></v-select>
-        <v-btn class="ml-5 mb-5" color="primary" v-on:click="saveProductStyle"
+        <v-btn class="ml-5 mb-5" color="primary" @click="saveProductStyle"
           >SAVE</v-btn
         >
       </v-card>
@@ -54,7 +54,7 @@
           :items="styleButtonColor"
           label="Select Border Color"
         ></v-select>
-        <v-btn class="ml-5 mb-5" color="primary" v-on:click="saveSaleStyle"
+        <v-btn class="ml-5 mb-5" color="primary" @click="saveSaleStyle"
           >SAVE</v-btn
         >
       </v-card>
@@ -84,7 +84,7 @@
           :items="styleButtonColor"
           label="Select Border Color"
         ></v-select>
-        <v-btn class="ml-5 mb-5" color="primary" v-on:click="saveReportStyle"
+        <v-btn class="ml-5 mb-5" color="primary" @click="saveReportStyle"
           >SAVE</v-btn
         >
       </v-card>
